@@ -16,4 +16,30 @@ describe Hand do
       expect(hand.to_s).to eq('AS QS JD TS 9S')
     end
   end
+
+  describe '.straight?' do
+    it 'returns false if the given hand is not a straight' do
+      hand = Hand.new(%w{2S 3C 4H 5D 7C})
+
+      expect(hand.straight?).to eq(false)
+    end
+
+    it 'returns true if the given hand is a regular straight' do
+      hand = Hand.new(%w{2S 3C 4H 5D 6C})
+
+      expect(hand.straight?).to eq(true)
+    end
+
+    it 'returns true if the given hand is a straight (ace high)' do
+      hand = Hand.new(%w{TS JC QH KD AC})
+
+      expect(hand.straight?).to eq(true)
+    end
+
+    it 'returns true if the given hand is a straight (five high)' do
+      hand = Hand.new(%w{2S 3C 4H 5D AC})
+
+      expect(hand.straight?).to eq(true)
+    end
+  end
 end

@@ -26,4 +26,9 @@ class Card
   def to_s
     "#{rank}#{suit}"
   end
+
+  def ace_to_one
+    return self unless rank == 'A'
+    Card.new("1#{suit}")
+  end
 end

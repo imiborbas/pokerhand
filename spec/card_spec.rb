@@ -30,4 +30,24 @@ describe Card do
       expect(card.to_s).to eq('AS')
     end
   end
+
+  describe '#ace_to_one' do
+    it 'returns a new card if the original card was ace' do
+      card = Card.new('AS')
+
+      expect(card.ace_to_one).to_not equal(card)
+    end
+
+    it 'returns a new card with rank 1 if the original card was ace, keeping the suit the same' do
+      card = Card.new('AS')
+
+      expect(card.ace_to_one.to_s).to eq('1S')
+    end
+
+    it 'returns itself if the card is not an ace' do
+      card = Card.new('KS')
+
+      expect(card.ace_to_one).to equal(card)
+    end
+  end
 end
