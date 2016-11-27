@@ -22,4 +22,8 @@ class Card
     else rank.to_i
     end
   end
+
+  def to_s
+    "#{rank}#{suit}"
+  end
 end

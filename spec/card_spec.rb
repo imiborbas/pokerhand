@@ -22,4 +22,12 @@ describe Card do
       expect(Card.new('AS')).to be > Card.new('KD')
     end
   end
+
+  describe '#to_s' do
+    it 'returns a string representation of the card' do
+      card = Card.new('AS')
+
+      expect(card.to_s).to eq('AS')
+    end
+  end
 end
