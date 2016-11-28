@@ -13,6 +13,8 @@ class Hand
     HIGH_CARD = 0
   end
 
+  attr_reader :cards
+
   def initialize(cards)
     @cards = cards.map { |card| Card.new(card) }.sort.reverse
   end

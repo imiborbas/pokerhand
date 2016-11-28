@@ -9,6 +9,14 @@ describe Hand do
     end
   end
 
+  describe '#cards' do
+    it 'returns a all of the cards in the hand, sorted from the highest to the lowest ranking card' do
+      hand = Hand.new(%w{JD 9S AS TS QS})
+
+      expect(hand.cards).to eq([Card.new('AS'), Card.new('QS'), Card.new('JD'), Card.new('TS'), Card.new('9S')])
+    end
+  end
+
   describe '#to_s' do
     it 'returns a string representation of the cards in the hand, sorted from the highest to the lowest ranking card' do
       hand = Hand.new(%w{JD 9S AS TS QS})
