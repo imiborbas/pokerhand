@@ -14,11 +14,11 @@ class Hand
   end
 
   def four_of_a_kind?
-    rank_groups.values.sort == [1, 4]
+    rank_group_counts.values.sort == [1, 4]
   end
 
   def full_house?
-    rank_groups.values.sort == [2, 3]
+    rank_group_counts.values.sort == [2, 3]
   end
 
   def flush?
@@ -30,15 +30,23 @@ class Hand
   end
 
   def three_of_a_kind?
-    rank_groups.values.sort == [1, 1, 3]
+    rank_group_counts.values.sort == [1, 1, 3]
   end
 
   def two_pair?
-    rank_groups.values.sort == [1, 2, 2]
+    rank_group_counts.values.sort == [1, 2, 2]
   end
 
   def one_pair?
-    rank_groups.values.sort == [1, 1, 1, 2]
+    rank_group_counts.values.sort == [1, 1, 1, 2]
+  end
+
+  def side_cards
+    @cards
+      .inject(Hash.new([])) { |hash, card| hash[card.rank] += [card]; hash }
+      .select { |_, cards| cards.count == 1 }
+      .values
+      .flatten
   end
 
   def ranks
@@ -49,9 +57,9 @@ class Hand
     @cards.map(&:suit)
   end
 
-  def rank_groups
-    ranks.inject(Hash.new(0)) do |hash, element|
-      hash[element] += 1
+  def rank_group_counts
+    ranks.inject(Hash.new(0)) do |hash, rank|
+      hash[rank] += 1
       hash
     end
   end

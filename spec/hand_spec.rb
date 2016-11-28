@@ -147,6 +147,14 @@ describe Hand do
     end
   end
 
+  describe '#side_cards' do
+    it 'returns the cards that do not form any particular valid combination' do
+      hand = Hand.new(%w{2S 3C 4H 6D 2C})
+
+      expect(hand.side_cards).to eq([Card.new('6D'), Card.new('4H'), Card.new('3C')])
+    end
+  end
+
   describe '#ranks' do
     it 'returns the ranks of all the cards in the hand' do
       hand = Hand.new(%w{2S 3C 4H 5D AC})
@@ -163,11 +171,11 @@ describe Hand do
     end
   end
 
-  describe '#rank_groups' do
-    it 'returns a hash of the structure { rank => count }' do
+  describe '#rank_group_counts' do
+    it 'returns a hash of the structure { "rank" => "count" }' do
       hand = Hand.new(%w{2S 3C 2H 2D 3C})
 
-      expect(hand.rank_groups).to eq({ '3' => 2, '2' => 3})
+      expect(hand.rank_group_counts).to eq({ '3' => 2, '2' => 3 })
     end
   end
 end
