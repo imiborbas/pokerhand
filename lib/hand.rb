@@ -17,6 +17,10 @@ class Hand
     groups.values.include?(4)
   end
 
+  def full_house?
+    groups.values.include?(2) && groups.values.include?(3)
+  end
+
   def ranks
     @cards.map(&:rank)
   end

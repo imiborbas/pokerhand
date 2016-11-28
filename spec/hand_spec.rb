@@ -57,6 +57,20 @@ describe Hand do
     end
   end
 
+  describe '#full_house?' do
+    it 'returns false if the given hand does not have two and three cards of the same rank' do
+      hand = Hand.new(%w{2S 3C 4H 2D 2C})
+
+      expect(hand.full_house?).to eq(false)
+    end
+
+    it 'returns true if the given hand has two and three cards of the same rank' do
+      hand = Hand.new(%w{2S 3C 2H 2D 3C})
+
+      expect(hand.full_house?).to eq(true)
+    end
+  end
+
   describe '#ranks' do
     it 'returns the ranks of all the cards in the hand' do
       hand = Hand.new(%w{2S 3C 4H 5D AC})
