@@ -21,8 +21,16 @@ class Hand
     (groups.values & [2, 3]) == [2, 3]
   end
 
+  def flush?
+    suits.uniq.size == 1
+  end
+
   def ranks
     @cards.map(&:rank)
+  end
+
+  def suits
+    @cards.map(&:suit)
   end
 
   def groups

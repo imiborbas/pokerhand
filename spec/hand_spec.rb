@@ -71,11 +71,33 @@ describe Hand do
     end
   end
 
+  describe '#flush?' do
+    it 'returns false if not all the cards have the same suit in the given hand' do
+      hand = Hand.new(%w{2S 3C 4H 2D 2C})
+
+      expect(hand.flush?).to eq(false)
+    end
+
+    it 'returns true if all the cards have the same suit in the given hand' do
+      hand = Hand.new(%w{2S 3S 2S 2S 3S})
+
+      expect(hand.flush?).to eq(true)
+    end
+  end
+
   describe '#ranks' do
     it 'returns the ranks of all the cards in the hand' do
       hand = Hand.new(%w{2S 3C 4H 5D AC})
 
       expect(hand.ranks).to eq(%w{A 5 4 3 2})
+    end
+  end
+
+  describe '#suits' do
+    it 'returns the suits of all the cards in the hand' do
+      hand = Hand.new(%w{2S 3C 4H 5D AC})
+
+      expect(hand.suits).to eq(%w{C D H C S})
     end
   end
 
