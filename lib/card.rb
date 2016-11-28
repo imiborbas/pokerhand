@@ -19,7 +19,7 @@ class Card
     when 'Q' then 12
     when 'K' then 13
     when 'A' then 14
-    else rank.to_i
+    else          rank.to_i
     end
   end
 
