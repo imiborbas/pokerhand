@@ -133,6 +133,20 @@ describe Hand do
     end
   end
 
+  describe '#one_pair?' do
+    it 'returns false if the given hand does not have exactly one pair of cards of the same rank' do
+      hand = Hand.new(%w{2S 3C 4H 6D 9C})
+
+      expect(hand.one_pair?).to eq(false)
+    end
+
+    it 'returns true if the given hand has exactly one pair of cards of the same rank' do
+      hand = Hand.new(%w{2S 3C 4H 6D 2C})
+
+      expect(hand.one_pair?).to eq(true)
+    end
+  end
+
   describe '#ranks' do
     it 'returns the ranks of all the cards in the hand' do
       hand = Hand.new(%w{2S 3C 4H 5D AC})

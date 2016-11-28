@@ -37,6 +37,10 @@ class Hand
     rank_groups.values.sort == [1, 2, 2]
   end
 
+  def one_pair?
+    rank_groups.values.sort == [1, 1, 1, 2]
+  end
+
   def ranks
     @cards.map(&:rank)
   end
