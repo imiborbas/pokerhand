@@ -81,6 +81,43 @@ describe Hand do
     end
   end
 
+  describe '#<=>' do
+    it 'ranks a four of a kind higher than a full house' do
+      four_of_a_kind = Hand.new(%w{2S 2C 4H 2D 2C})
+      full_house = Hand.new(%w{2S 2C 4H 4D 4C})
+
+      expect(four_of_a_kind).to be > full_house
+    end
+
+    it 'ranks two equal straight flushes equally' do
+      straight_flush_1 = Hand.new(%w{2C 3C 4C 5C 6C})
+      straight_flush_2 = Hand.new(%w{2H 3H 4H 5H 6H})
+
+      expect(straight_flush_1).to eq straight_flush_2
+    end
+
+    it 'ranks the straight flushes with the higher card higher' do
+      straight_flush_1 = Hand.new(%w{3C 4C 5C 6C 7C})
+      straight_flush_2 = Hand.new(%w{2H 3H 4H 5H 6H})
+
+      expect(straight_flush_1).to be > straight_flush_2
+    end
+
+    it 'ranks the two pair with the higher second pair higher' do
+      two_pair_1 = Hand.new(%w{6D 6C 2H 4S 4C})
+      two_pair_2 = Hand.new(%w{6D 6C 5H 3S 3C})
+
+      expect(two_pair_1).to be > two_pair_2
+    end
+
+    it 'ranks the two pair with the higher side card higher' do
+      two_pair_1 = Hand.new(%w{6D 6C 3H 4S 4C})
+      two_pair_2 = Hand.new(%w{6D 6C 2H 4S 4C})
+
+      expect(two_pair_1).to be > two_pair_2
+    end
+  end
+
   describe '#straight_flush?' do
     it 'returns false if not all the cards have the same suit in the given hand' do
       hand = Hand.new(%w{2S 3C 4H 5D 6C})
@@ -208,6 +245,14 @@ describe Hand do
       hand = Hand.new(%w{2S 3C 4H 6D 2C})
 
       expect(hand.one_pair?).to eq(true)
+    end
+  end
+
+  describe '#combination_cards' do
+    it 'returns the cards that form a particular valid combination' do
+      hand = Hand.new(%w{2S 3C 4H 3D 2C})
+
+      expect(hand.combination_cards).to eq([Card.new('3C'), Card.new('3D'), Card.new('2S'), Card.new('2C')])
     end
   end
 

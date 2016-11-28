@@ -1,6 +1,8 @@
 require_relative 'card'
 
 class Hand
+  include Comparable
+
   module Ranks
     STRAIGHT_FLUSH = 8
     FOUR_OF_A_KIND = 7
@@ -37,6 +39,20 @@ class Hand
     end
   end
 
+  def <=>(other)
+    return rank <=> other.rank if rank != other.rank
+
+    combination_cards.each_with_index do |card, i|
+      return card <=> other.combination_cards[i] if card != other.combination_cards[i]
+    end
+
+    side_cards.each_with_index do |card, i|
+      return card <=> other.side_cards[i] if card != other.side_cards[i]
+    end
+
+    0
+  end
+
   def straight_flush?
     straight? && flush?
   end
@@ -67,6 +83,14 @@ class Hand
 
   def one_pair?
     rank_group_counts.values.sort == [1, 1, 1, 2]
+  end
+
+  def combination_cards
+    @cards
+      .inject(Hash.new([])) { |hash, card| hash[card.rank] += [card]; hash }
+      .select { |_, cards| cards.count > 1 }
+      .values
+      .flatten
   end
 
   def side_cards

@@ -23,6 +23,17 @@ describe Card do
     end
   end
 
+  describe '#==' do
+
+    it 'returns true if the two cards have the same rank, and the same suit' do
+      expect(Card.new('4S')).to eq Card.new('4S')
+    end
+
+    it 'returns true if the two cards have the same rank, regardless of suit' do
+      expect(Card.new('4S')).to eq Card.new('4H')
+    end
+  end
+
   describe '#to_s' do
     it 'returns a string representation of the card' do
       card = Card.new('AS')
