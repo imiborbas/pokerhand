@@ -17,29 +17,23 @@ describe Hand do
     end
   end
 
-  describe '.straight?' do
-    it 'returns false if the given hand is not a straight' do
-      hand = Hand.new(%w{2S 3C 4H 5D 7C})
-
-      expect(hand.straight?).to eq(false)
-    end
-
-    it 'returns true if the given hand is a regular straight' do
+  describe '#straight_flush?' do
+    it 'returns false if not all the cards have the same suit in the given hand' do
       hand = Hand.new(%w{2S 3C 4H 5D 6C})
 
-      expect(hand.straight?).to eq(true)
+      expect(hand.straight_flush?).to eq(false)
     end
 
-    it 'returns true if the given hand is a straight (ace high)' do
-      hand = Hand.new(%w{TS JC QH KD AC})
+    it 'returns false if all the cards have the same suit, but they do not form a sequence in the given hand' do
+      hand = Hand.new(%w{2D 3D 4D 5D 7D})
 
-      expect(hand.straight?).to eq(true)
+      expect(hand.straight_flush?).to eq(false)
     end
 
-    it 'returns true if the given hand is a straight (five high)' do
-      hand = Hand.new(%w{2S 3C 4H 5D AC})
+    it 'returns true if all the cards have the same suit and form a sequence in the given hand' do
+      hand = Hand.new(%w{2C 3C 4C 5C 6C})
 
-      expect(hand.straight?).to eq(true)
+      expect(hand.straight_flush?).to eq(true)
     end
   end
 
@@ -82,6 +76,32 @@ describe Hand do
       hand = Hand.new(%w{2S 3S 2S 2S 3S})
 
       expect(hand.flush?).to eq(true)
+    end
+  end
+
+  describe '#straight?' do
+    it 'returns false if the given hand is not a straight' do
+      hand = Hand.new(%w{2S 3C 4H 5D 7C})
+
+      expect(hand.straight?).to eq(false)
+    end
+
+    it 'returns true if the given hand is a regular straight' do
+      hand = Hand.new(%w{2S 3C 4H 5D 6C})
+
+      expect(hand.straight?).to eq(true)
+    end
+
+    it 'returns true if the given hand is a straight (ace high)' do
+      hand = Hand.new(%w{TS JC QH KD AC})
+
+      expect(hand.straight?).to eq(true)
+    end
+
+    it 'returns true if the given hand is a straight (five high)' do
+      hand = Hand.new(%w{2S 3C 4H 5D AC})
+
+      expect(hand.straight?).to eq(true)
     end
   end
 

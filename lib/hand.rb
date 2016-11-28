@@ -9,8 +9,8 @@ class Hand
     @cards.map(&:to_s).join(' ')
   end
 
-  def straight?
-    check_straight(@cards) || check_straight(@cards[1...5] + [@cards[0].ace_to_one])
+  def straight_flush?
+    straight? && flush?
   end
 
   def four_of_a_kind?
@@ -23,6 +23,10 @@ class Hand
 
   def flush?
     suits.uniq.size == 1
+  end
+
+  def straight?
+    check_straight(@cards) || check_straight(@cards[1...5] + [@cards[0].ace_to_one])
   end
 
   def ranks
