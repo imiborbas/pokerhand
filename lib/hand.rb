@@ -13,6 +13,21 @@ class Hand
     check_straight(@cards) || check_straight(@cards[1...5] + [@cards[0].ace_to_one])
   end
 
+  def four_of_a_kind?
+    groups.values.include?(4)
+  end
+
+  def ranks
+    @cards.map(&:rank)
+  end
+
+  def groups
+    ranks.inject(Hash.new(0)) do |hash, element|
+      hash[element] += 1
+      hash
+    end
+  end
+
   private
 
   def check_straight(cards)

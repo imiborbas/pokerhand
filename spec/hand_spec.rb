@@ -42,4 +42,34 @@ describe Hand do
       expect(hand.straight?).to eq(true)
     end
   end
+
+  describe '#four_of_a_kind?' do
+    it 'returns false if the given hand does not have four cards of the same rank' do
+      hand = Hand.new(%w{2S 3C 4H 2D 2C})
+
+      expect(hand.four_of_a_kind?).to eq(false)
+    end
+
+    it 'returns true if the given hand has four cards of the same rank' do
+      hand = Hand.new(%w{2S 2C 4H 2D 2C})
+
+      expect(hand.four_of_a_kind?).to eq(true)
+    end
+  end
+
+  describe '#ranks' do
+    it 'returns the ranks of all the cards in the hand' do
+      hand = Hand.new(%w{2S 3C 4H 5D AC})
+
+      expect(hand.ranks).to eq(%w{A 5 4 3 2})
+    end
+  end
+
+  describe '#groups' do
+    it 'returns a hash of the structure { rank => count }' do
+      hand = Hand.new(%w{2S 3C 2H 2D 3C})
+
+      expect(hand.groups).to eq({'3' => 2, '2' => 3})
+    end
+  end
 end
