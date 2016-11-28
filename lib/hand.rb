@@ -18,7 +18,7 @@ class Hand
   end
 
   def full_house?
-    groups.values.include?(2) && groups.values.include?(3)
+    (groups.values & [2, 3]) == [2, 3]
   end
 
   def ranks
