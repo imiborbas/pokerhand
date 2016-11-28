@@ -1,12 +1,38 @@
 require_relative 'card'
 
 class Hand
+  module Ranks
+    STRAIGHT_FLUSH = 8
+    FOUR_OF_A_KIND = 7
+    FULL_HOUSE = 6
+    FLUSH = 5
+    STRAIGHT = 4
+    THREE_OF_A_KIND = 3
+    TWO_PAIR = 2
+    ONE_PAIR = 1
+    HIGH_CARD = 0
+  end
+
   def initialize(cards)
     @cards = cards.map { |card| Card.new(card) }.sort.reverse
   end
 
   def to_s
     @cards.map(&:to_s).join(' ')
+  end
+
+  def rank
+    case
+    when straight_flush? then Ranks::STRAIGHT_FLUSH
+    when four_of_a_kind? then Ranks::FOUR_OF_A_KIND
+    when full_house? then Ranks::FULL_HOUSE
+    when flush? then Ranks::FLUSH
+    when straight? then Ranks::STRAIGHT
+    when three_of_a_kind? then Ranks::THREE_OF_A_KIND
+    when two_pair? then Ranks::TWO_PAIR
+    when one_pair? then Ranks::ONE_PAIR
+    else Ranks::HIGH_CARD
+    end
   end
 
   def straight_flush?

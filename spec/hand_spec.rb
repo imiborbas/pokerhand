@@ -17,6 +17,62 @@ describe Hand do
     end
   end
 
+  describe '#rank' do
+    it 'returns Hand::Ranks::STRAIGHT_FLUSH if it has a straight flush combination' do
+      hand = Hand.new(%w{2D 3D 4D 5D 6D})
+
+      expect(hand.rank).to eq(Hand::Ranks::STRAIGHT_FLUSH)
+    end
+
+    it 'returns Hand::Ranks::FOUR_OF_A_KIND if it has a four of a kind combination' do
+      hand = Hand.new(%w{2S 2C 4H 2D 2C})
+
+      expect(hand.rank).to eq(Hand::Ranks::FOUR_OF_A_KIND)
+    end
+
+    it 'returns Hand::Ranks::FULL_HOUSE if it has a full house combination' do
+      hand = Hand.new(%w{2S 2C 4H 4D 4C})
+
+      expect(hand.rank).to eq(Hand::Ranks::FULL_HOUSE)
+    end
+
+    it 'returns Hand::Ranks::FLUSH if it has a flush combination' do
+      hand = Hand.new(%w{2D 3D 4D 5D 7D})
+
+      expect(hand.rank).to eq(Hand::Ranks::FLUSH)
+    end
+
+    it 'returns Hand::Ranks::STRAIGHT if it has a straight combination' do
+      hand = Hand.new(%w{2D 3C 4S 5H 6D})
+
+      expect(hand.rank).to eq(Hand::Ranks::STRAIGHT)
+    end
+
+    it 'returns Hand::Ranks::THREE_OF_A_KIND if it has a three of a kind combination' do
+      hand = Hand.new(%w{2D 3C 2S 5H 2H})
+
+      expect(hand.rank).to eq(Hand::Ranks::THREE_OF_A_KIND)
+    end
+
+    it 'returns Hand::Ranks::TWO_PAIR if it has a two pair combination' do
+      hand = Hand.new(%w{2D 3C 2S 5H 3H})
+
+      expect(hand.rank).to eq(Hand::Ranks::TWO_PAIR)
+    end
+
+    it 'returns Hand::Ranks::ONE_PAIR if it has a one pair combination' do
+      hand = Hand.new(%w{2D 3C 2S 5H 6H})
+
+      expect(hand.rank).to eq(Hand::Ranks::ONE_PAIR)
+    end
+
+    it 'returns Hand::Ranks::HIGH_CARD if it does not have any particular combination' do
+      hand = Hand.new(%w{2D 3C 4S 5H 7D})
+
+      expect(hand.rank).to eq(Hand::Ranks::HIGH_CARD)
+    end
+  end
+
   describe '#straight_flush?' do
     it 'returns false if not all the cards have the same suit in the given hand' do
       hand = Hand.new(%w{2S 3C 4H 5D 6C})
