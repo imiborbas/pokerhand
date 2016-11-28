@@ -14,11 +14,11 @@ class Hand
   end
 
   def four_of_a_kind?
-    groups.values.include?(4)
+    rank_groups.values.sort == [1, 4]
   end
 
   def full_house?
-    (groups.values & [2, 3]) == [2, 3]
+    rank_groups.values.sort == [2, 3]
   end
 
   def flush?
@@ -29,6 +29,10 @@ class Hand
     check_straight(@cards) || check_straight(@cards[1...5] + [@cards[0].ace_to_one])
   end
 
+  def three_of_a_kind?
+    rank_groups.values.sort == [1, 1, 3]
+  end
+
   def ranks
     @cards.map(&:rank)
   end
@@ -37,7 +41,7 @@ class Hand
     @cards.map(&:suit)
   end
 
-  def groups
+  def rank_groups
     ranks.inject(Hash.new(0)) do |hash, element|
       hash[element] += 1
       hash

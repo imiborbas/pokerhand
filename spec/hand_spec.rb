@@ -105,6 +105,20 @@ describe Hand do
     end
   end
 
+  describe '#three_of_a_kind?' do
+    it 'returns false if the given hand does not have three cards of the same rank' do
+      hand = Hand.new(%w{2S 3C 4H 2D 9C})
+
+      expect(hand.three_of_a_kind?).to eq(false)
+    end
+
+    it 'returns true if the given hand has three cards of the same rank' do
+      hand = Hand.new(%w{2S 3C 4H 2D 2C})
+
+      expect(hand.three_of_a_kind?).to eq(true)
+    end
+  end
+
   describe '#ranks' do
     it 'returns the ranks of all the cards in the hand' do
       hand = Hand.new(%w{2S 3C 4H 5D AC})
@@ -121,11 +135,11 @@ describe Hand do
     end
   end
 
-  describe '#groups' do
+  describe '#rank_groups' do
     it 'returns a hash of the structure { rank => count }' do
       hand = Hand.new(%w{2S 3C 2H 2D 3C})
 
-      expect(hand.groups).to eq({'3' => 2, '2' => 3})
+      expect(hand.rank_groups).to eq({ '3' => 2, '2' => 3})
     end
   end
 end
