@@ -87,7 +87,7 @@ class Hand
 
   def combination_cards
     @cards
-      .inject(Hash.new([])) { |hash, card| hash[card.rank] += [card]; hash }
+      .each_with_object(Hash.new([])) { |card, cards_by_rank| cards_by_rank[card.rank] += [card] }
       .select { |_, cards| cards.count > 1 }
       .values
       .flatten
@@ -95,7 +95,7 @@ class Hand
 
   def side_cards
     @cards
-      .inject(Hash.new([])) { |hash, card| hash[card.rank] += [card]; hash }
+      .each_with_object(Hash.new([])) { |card, cards_by_rank| cards_by_rank[card.rank] += [card] }
       .select { |_, cards| cards.count == 1 }
       .values
       .flatten
@@ -110,9 +110,8 @@ class Hand
   end
 
   def rank_group_counts
-    ranks.inject(Hash.new(0)) do |hash, rank|
-      hash[rank] += 1
-      hash
+    ranks.each_with_object(Hash.new(0)) do |rank, counts|
+      counts[rank] += 1
     end
   end
 
