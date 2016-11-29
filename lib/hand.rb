@@ -35,7 +35,7 @@ class Hand
     when three_of_a_kind? then Ranks::THREE_OF_A_KIND
     when two_pair?        then Ranks::TWO_PAIR
     when one_pair?        then Ranks::ONE_PAIR
-    else                       Ranks::HIGH_CARD
+                          else Ranks::HIGH_CARD
     end
   end
 
@@ -110,9 +110,7 @@ class Hand
   end
 
   def rank_group_counts
-    ranks.each_with_object(Hash.new(0)) do |rank, counts|
-      counts[rank] += 1
-    end
+    ranks.each_with_object(Hash.new(0)) { |rank, counts| counts[rank] += 1 }
   end
 
   private
